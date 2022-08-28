@@ -32,10 +32,11 @@ namespace Booking.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(contact);
-                TempData["Sweet"] = "";
                 await _context.SaveChangesAsync();
+                Thread.Sleep(2000);
                 return RedirectToAction(nameof(Index));
             }
+            Thread.Sleep(2000);
             return View(contact);
         }
 

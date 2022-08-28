@@ -1,0 +1,46 @@
+﻿@model Booking.Models.Contact
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_SuperAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-9 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description">
+                        Basic form layout
+                    </p>
+                    <form asp-action="Edit" class="forms-sample">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+
+                        <div class="form-group">
+                            <label asp-for="FullName" class="control-label"></label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Message" class="control-label"></label>
+                            <input asp-for="Message" class="form-control" />
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button asp-action="Index" class="btn btn-light">Back To List</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
