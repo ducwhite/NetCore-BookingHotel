@@ -5,6 +5,43 @@
     Layout = "~/Views/Shared/_SuperAdmin.cshtml";
 }
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#btnSubmit").click(function() {
+            if ($('#fullname').val() === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The Full Name field is required!',
+                })
+            }
+            else if ($('#email').val() === "" ) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The Email field is required!',
+                })
+            }
+            else if ($('#message').val() === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The Message field is required!',
+                })
+            }
+            else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Done',
+                    text: 'Update successfully!',
+                    timer: 3000
+                })
+            }
+
+        })
+    })
+</script>
+
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-9 grid-margin stretch-card">
@@ -21,21 +58,21 @@
 
                         <div class="form-group">
                             <label asp-for="FullName" class="control-label"></label>
-                            <input asp-for="FullName" class="form-control" />
+                            <input asp-for="FullName" class="form-control" id="fullname"/>
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Email" class="control-label"></label>
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control" id="email"/>
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Message" class="control-label"></label>
-                            <textarea asp-for="Message" class="form-control" rows="3"></textarea>
+                            <textarea asp-for="Message" class="form-control" style="height: 12rem" id="message"></textarea>
                             <span asp-validation-for="Message" class="text-danger"></span>
                         </div>
 
-                        <button type="submit" class="btn btn-primary me-2">Submit</button>
+                        <button type="submit" class="btn btn-primary me-2" id="btnSubmit">Submit</button>
                         <button asp-action="Index" class="btn btn-light">Back To List</button>
                     </form>
                 </div>

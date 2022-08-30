@@ -13,6 +13,17 @@ namespace Booking.Models
         [Required]
         public string Message { get; set; }
 
+        public string MessageTrimmed
+        {
+            get
+            {
+                if (Message.Length > 10) { return Message.Substring(0, 10) + " ..."; }
+                else { return Message; }
+
+            }
+        }
 
     }
+
+
 }

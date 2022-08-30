@@ -11,87 +11,87 @@ using Booking.Models;
 namespace Booking.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ContactController : Controller
+    public class CategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ContactController(ApplicationDbContext context)
+        public CategoryController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Contact
+        // GET: Admin/Category
         public async Task<IActionResult> Index()
         {
-              return _context.Contacts != null ? 
-                          View(await _context.Contacts.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Contacts'  is null.");
+              return _context.Categories != null ? 
+                          View(await _context.Categories.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
         }
 
-        // GET: Admin/Contact/Details/5
+        // GET: Admin/Category/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts
+            var categories = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (contact == null)
+            if (categories == null)
             {
                 return NotFound();
             }
 
-            return View(contact);
+            return View(categories);
         }
 
-        // GET: Admin/Contact/Create
+        // GET: Admin/Category/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Contact/Create
+        // POST: Admin/Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Email,Message")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Categories categories)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(contact);
+                _context.Add(categories);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(contact);
+            return View(categories);
         }
 
-        // GET: Admin/Contact/Edit/5
+        // GET: Admin/Category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts.FindAsync(id);
-            if (contact == null)
+            var categories = await _context.Categories.FindAsync(id);
+            if (categories == null)
             {
                 return NotFound();
             }
-            return View(contact);
+            return View(categories);
         }
 
-        // POST: Admin/Contact/Edit/5
+        // POST: Admin/Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Email,Message")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Categories categories)
         {
-            if (id != contact.Id)
+            if (id != categories.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace Booking.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(contact);
+                    _context.Update(categories);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContactExists(contact.Id))
+                    if (!CategoriesExists(categories.Id))
                     {
                         return NotFound();
                     }
@@ -114,55 +114,51 @@ namespace Booking.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                Thread.Sleep(2000);
                 return RedirectToAction(nameof(Index));
             }
-
-            Thread.Sleep(2000);
-            return View(contact);
+            return View(categories);
         }
 
-        // GET: Admin/Contact/Delete/5
+        // GET: Admin/Category/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts
+            var categories = await _context.Categories
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (contact == null)
+            if (categories == null)
             {
                 return NotFound();
             }
 
-            return View(contact);
+            return View(categories);
         }
 
-        // POST: Admin/Contact/Delete/5
+        // POST: Admin/Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Contacts == null)
+            if (_context.Categories == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Contacts'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Categories'  is null.");
             }
-            var contact = await _context.Contacts.FindAsync(id);
-            if (contact != null)
+            var categories = await _context.Categories.FindAsync(id);
+            if (categories != null)
             {
-                _context.Contacts.Remove(contact);
+                _context.Categories.Remove(categories);
             }
             
             await _context.SaveChangesAsync();
-            Thread.Sleep(2000);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ContactExists(int id)
+        private bool CategoriesExists(int id)
         {
-          return (_context.Contacts?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Categories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

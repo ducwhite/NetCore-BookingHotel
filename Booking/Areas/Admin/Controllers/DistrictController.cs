@@ -11,87 +11,87 @@ using Booking.Models;
 namespace Booking.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class ContactController : Controller
+    public class DistrictController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ContactController(ApplicationDbContext context)
+        public DistrictController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Contact
+        // GET: Admin/District
         public async Task<IActionResult> Index()
         {
-              return _context.Contacts != null ? 
-                          View(await _context.Contacts.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Contacts'  is null.");
+              return _context.Districts != null ? 
+                          View(await _context.Districts.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Districts'  is null.");
         }
 
-        // GET: Admin/Contact/Details/5
+        // GET: Admin/District/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Districts == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts
+            var district = await _context.Districts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (contact == null)
+            if (district == null)
             {
                 return NotFound();
             }
 
-            return View(contact);
+            return View(district);
         }
 
-        // GET: Admin/Contact/Create
+        // GET: Admin/District/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Contact/Create
+        // POST: Admin/District/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Email,Message")] Contact contact)
+        public async Task<IActionResult> Create([Bind("Id,Name")] District district)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(contact);
+                _context.Add(district);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(contact);
+            return View(district);
         }
 
-        // GET: Admin/Contact/Edit/5
+        // GET: Admin/District/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Districts == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts.FindAsync(id);
-            if (contact == null)
+            var district = await _context.Districts.FindAsync(id);
+            if (district == null)
             {
                 return NotFound();
             }
-            return View(contact);
+            return View(district);
         }
 
-        // POST: Admin/Contact/Edit/5
+        // POST: Admin/District/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Email,Message")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] District district)
         {
-            if (id != contact.Id)
+            if (id != district.Id)
             {
                 return NotFound();
             }
@@ -100,12 +100,12 @@ namespace Booking.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(contact);
+                    _context.Update(district);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContactExists(contact.Id))
+                    if (!DistrictExists(district.Id))
                     {
                         return NotFound();
                     }
@@ -114,55 +114,51 @@ namespace Booking.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                Thread.Sleep(2000);
                 return RedirectToAction(nameof(Index));
             }
-
-            Thread.Sleep(2000);
-            return View(contact);
+            return View(district);
         }
 
-        // GET: Admin/Contact/Delete/5
+        // GET: Admin/District/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Contacts == null)
+            if (id == null || _context.Districts == null)
             {
                 return NotFound();
             }
 
-            var contact = await _context.Contacts
+            var district = await _context.Districts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (contact == null)
+            if (district == null)
             {
                 return NotFound();
             }
 
-            return View(contact);
+            return View(district);
         }
 
-        // POST: Admin/Contact/Delete/5
+        // POST: Admin/District/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Contacts == null)
+            if (_context.Districts == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Contacts'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Districts'  is null.");
             }
-            var contact = await _context.Contacts.FindAsync(id);
-            if (contact != null)
+            var district = await _context.Districts.FindAsync(id);
+            if (district != null)
             {
-                _context.Contacts.Remove(contact);
+                _context.Districts.Remove(district);
             }
             
             await _context.SaveChangesAsync();
-            Thread.Sleep(2000);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ContactExists(int id)
+        private bool DistrictExists(int id)
         {
-          return (_context.Contacts?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Districts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

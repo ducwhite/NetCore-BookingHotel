@@ -12,5 +12,9 @@ namespace Booking.Data
         }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<District> Districts { get; set; }
+
+        public DbSet<Room> Rooms { get; set; }
     }
 }
